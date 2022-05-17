@@ -17,8 +17,8 @@ module.exports = (app) => {
             }
 
             bcrypt.compare(req.body.password, user.password)
-            .then(isPasswordValied => {
-                if(!isPasswordValied) {
+            .then(isPasswordValided => {
+                if(!isPasswordValided) {
                     const message = `Le mot de passe est incorrect !`
                     res.status(401).json({message})
                 }
@@ -29,7 +29,7 @@ module.exports = (app) => {
 	                privateKey,
 	                {expiresIn: '24h'}
                 )
-
+                
                 const message = `L'utilisateur a bien été identifié !`
                 res.json({message, data: {user, token}})
             })

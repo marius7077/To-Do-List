@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000
 //Middleware
 app
     .use(favicon(__dirname + '/favicon.ico'))
-    .use(morgan('dev'))
+    .use(morgan('dev')) 
     .use(bodyParser.json())
 
 //Initialisation de la base

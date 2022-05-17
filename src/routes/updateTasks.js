@@ -1,6 +1,6 @@
 const { Tasks } = require('../db/sequelize')
 const { ValidationError, UniqueConstraintError } = require('sequelize')
-const auth = require('../auth/auth')
+const {auth} = require('../auth/auth')
 
 module.exports = (app) => {
     app.put('/api/tasks/:id', auth, (req, res) => {

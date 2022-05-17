@@ -1,5 +1,5 @@
 const { Tasks } = require('../db/sequelize')
-const auth = require('../auth/auth')
+const {auth} = require('../auth/auth')
 
 module.exports = (app) => {
     app.delete('/api/tasks/:id', auth, (req, res) => {

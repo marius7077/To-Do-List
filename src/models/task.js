@@ -1,6 +1,5 @@
-const { User } = require("../models/user")
-
 const typeList = ['Software', 'Hardware', 'Build', 'Dev', 'Run']
+const userModel = require('../models/user')
 
 module.exports = (sequelize, DataTypes) => {
     const Task =  sequelize.define('Task', {
@@ -66,10 +65,12 @@ module.exports = (sequelize, DataTypes) => {
                     }
                 }
             }
-        },
-        UserID: {
-            type: DataTypes.INTEGER
         }
     })
+
+    const User = userModel(sequelize,DataTypes)
+    User.hasMany(Task)
+    Task.belongsTo(User)
+    
     return Task
 }
