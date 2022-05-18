@@ -1,5 +1,5 @@
-const { Tasks } = require('../db/sequelize')
-const {auth} = require('../auth/auth')
+const { Tasks } = require('../../db/sequelize')
+const {auth} = require('../../auth/auth')
 
 module.exports = (app) => {
     app.get('/api/tasks/:id', auth, (req, res) =>{

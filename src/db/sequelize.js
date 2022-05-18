@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize')
 const taskModel = require('../models/task')
 const userModel = require('../models/user')
+const commentModel = require('../models/comment')
 const bcrypt = require('bcrypt')
 
 //Configuration de connexion
@@ -15,6 +16,7 @@ const sequelize = new Sequelize('taskdb', 'root', 'root', {
 
 const Tasks = taskModel(sequelize, DataTypes)
 const Users = userModel(sequelize, DataTypes)
+const Comments = commentModel(sequelize, DataTypes)
 
 const initDb = () => {
     return sequelize.sync({ force: true })
@@ -30,27 +32,34 @@ const initDb = () => {
             })
 
             Tasks.bulkCreate([{
-                    name: 'Première tâche',
+                    title: 'Première tâche',
+                    description: 'Salut',
+                    priority: 'Low',
                     deadline: '2022-05-25',
                     type: 'Hardware'
                 },
                 {
-                    name: 'Encore une tâche !',
+                    title: 'Encore une tâche !',
+                    description: 'Salut',
+                    priority: 'Low',
                     deadline: '2022-12-25',
                     type: 'Dev'
                 },
                 {
-                    name: 'Une Nouvelle tâche !',
+                    title: 'Une Nouvelle tâche !',
+                    description: 'Salut',
+                    priority: 'Low',
                     deadline: '2022-12-25',
                     type: 'Dev'
                 }]
             ).then(tasks => {
                 tasks.forEach(task => console.log(task.toJSON()))
             })
+
             console.log('La base de données a bien été initialisée !');
         })
 }
 
 module.exports = {
-    initDb, Tasks, Users
+    initDb, Tasks, Users, Comments
 }

@@ -1,4 +1,5 @@
 const typeList = ['Software', 'Hardware', 'Build', 'Dev', 'Run']
+const priorityList = ['Low','Medium','High']
 const userModel = require('../models/user')
 
 module.exports = (sequelize, DataTypes) => {
@@ -8,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true,
             primaryKey: true
         },
-        name: {
+        title: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: {
@@ -20,6 +21,28 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 notNull: {
                     msg: 'Le nom est requis !'
+                }
+            }
+        },
+        description:  {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            validate: {
+                notNull: {msg : 'La description est requise !'},
+                notEmpty: {
+                    msg: 'La description est requise !'
+                }
+            }
+        },
+        priority: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate:  {
+                notNull: {msg : 'Une priorité est requise !'},
+                isList(value) {
+                    if(!priorityList.includes(value)){
+                        throw new Error(`${value} n'est pas dans la liste des priorités : ${priorityList}`)
+                    }
                 }
             }
         },
@@ -70,7 +93,6 @@ module.exports = (sequelize, DataTypes) => {
 
     const User = userModel(sequelize,DataTypes)
     User.hasMany(Task)
-    Task.belongsTo(User)
     
     return Task
 }
